@@ -54,6 +54,29 @@
             <version>2.1.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.hbase</groupId>-->
+<!--            <artifactId>hbase</artifactId>-->
+<!--            <version>1.6.0</version>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-client -->
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-client</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-server -->
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-server</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+
+
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -74,7 +97,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.movierecommendation.main.Application</mainClass>
+                            <mainClass>com.movierecommendation.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
