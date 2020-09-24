@@ -1,18 +1,23 @@
 package com.movierecommendation;
 
-import com.movierecommendation.controllers.HBaseController;
+import com.movierecommendation.controllers.MovieRecommendationController;
+import com.movierecommendation.models.Movies;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.util.List;
 
 @SpringBootApplication
 @EnableWebFlux
@@ -29,16 +34,28 @@ public class Application {
     }
 
     @Bean
-    RouterFunction<ServerResponse> createTable(HBaseController controller) {
-        return RouterFunctions.route(RequestPredicates.GET("/create"),
+    RouterFunction<ServerResponse> createTable(MovieRecommendationController controller) {
+        return RouterFunctions.route(RequestPredicates.GET("/user/{userId}"),
                 request -> {
                     try {
-                        return ServerResponse.ok().body(controller.createTable(request), String.class);
+                        return ServerResponse.ok().body(controller.recommendMovies(request), new ParameterizedTypeReference<List<Movies>>() {});
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     return ServerResponse.ok().body(Mono.just("OK"), String.class);
                 });
+    }
+    
+    @Bean
+    RouterFunction<ServerResponse> loadMovie(MovieRecommendationController controller) {
+        return RouterFunctions.route(RequestPredicates.GET("/movie/{movieId}"),
+                controller::loadMovie);
+    }
+    
+    @Bean
+    RouterFunction<ServerResponse> trainModel(MovieRecommendationController controller) {
+        return RouterFunctions.route(RequestPredicates.GET("/train"),
+                controller::trainModel);
     }
 
 }

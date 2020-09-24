@@ -1,25 +1,31 @@
 package com.movierecommendation.models;
 
-import scala.Serializable;
+import java.io.Serializable;
+
+import org.apache.hadoop.hbase.client.Result;
+import org.apache.hadoop.hbase.util.Bytes;
+
+import com.movierecommendation.constants.Constants;
+
 
 public class Movies implements Serializable {
-    private long movieId;
+    private int movieId;
     private String title;
     private String genres;
 
     public Movies() {}
 
-    public Movies(long movieId, String title, String genres) {
+    public Movies(int movieId, String title, String genres) {
         this.movieId = movieId;
         this.title = title;
         this.genres = genres;
     }
 
-    public long getMovieId() {
+    public int getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(long movieId) {
+    public void setMovieId(int movieId) {
         this.movieId = movieId;
     }
 
@@ -38,4 +44,20 @@ public class Movies implements Serializable {
     public void setGenres(String genres) {
         this.genres = genres;
     }
+    
+    public static Movies toMovies(Result result) {
+    	Movies movies = new Movies();
+    	movies.movieId = Integer.parseInt(Bytes.toString(result.getValue(Bytes.toBytes(Constants.MOVIE_ID), Bytes.toBytes(Constants.MOVIE_ID))));
+    	movies.title = Bytes.toString(result.getValue(Bytes.toBytes(Constants.TITLE), Bytes.toBytes(Constants.TITLE)));
+    	movies.genres = Bytes.toString(result.getValue(Bytes.toBytes(Constants.GENRES), Bytes.toBytes(Constants.GENRES)));
+    	return movies;
+    }
+
+	@Override
+	public String toString() {
+		return "Movies [movieId=" + movieId + ", title=" + title + ", genres="
+				+ genres + "]";
+	}
+    
+    
 }

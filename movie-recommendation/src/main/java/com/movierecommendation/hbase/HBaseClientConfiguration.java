@@ -17,7 +17,7 @@ public class HBaseClientConfiguration {
 	private Connection connection;
 	private Admin admin;
 	
-	@PostConstruct
+//	@PostConstruct
 	public void init() throws IOException {
 		Configuration config = HBaseConfiguration.create();
 
