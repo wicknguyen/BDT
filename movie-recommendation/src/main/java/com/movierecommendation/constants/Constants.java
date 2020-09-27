@@ -4,6 +4,8 @@ import scala.Serializable;
 
 public class Constants implements Serializable {
 	
+	private static final long serialVersionUID = -8947968614253259046L;
+	
 	public static final String MOVIES_TABLE_NAME = "movies";
 	public static final String MOVIE_ID = "movieId";
 	public static final String TITLE = "title";

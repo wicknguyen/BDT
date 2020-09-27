@@ -18,7 +18,7 @@ public class RecommendationEngine {
 	private static Logger logger = Logger.getLogger(RecommendationEngine.class);
 
     public TrainedModel train(TrainConfig trainConfig, JavaRDD<Rating> ratings) {
-        logger.info("loadAndParseRatings ratings data");
+        logger.info("Start training model");
         return createAlsModel(ratings, trainConfig);
     }
 
@@ -34,7 +34,7 @@ public class RecommendationEngine {
     }
 
     public JavaRDD<UserRecommendations> recommendMoviesForUser(TrainedModel model, int userId) {
-        logger.info("start saving user recommendations");
+        logger.info("start user recommendations");
         JavaRDD<Tuple2<Object, Rating[]>> recommendations = model.getMatrixModel()
                 .recommendProductsForUsers(userId)
                 .toJavaRDD();

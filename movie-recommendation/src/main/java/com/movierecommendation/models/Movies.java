@@ -9,7 +9,10 @@ import com.movierecommendation.constants.Constants;
 
 
 public class Movies implements Serializable {
-    private int movieId;
+ 
+	private static final long serialVersionUID = -8104062939189714292L;
+	
+	private int movieId;
     private String title;
     private String genres;
 

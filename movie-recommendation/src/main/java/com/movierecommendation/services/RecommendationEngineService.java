@@ -5,9 +5,6 @@ import static com.movierecommendation.constants.Constants.RATINGS_TABLE_NAME;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.annotation.PostConstruct;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -25,7 +22,6 @@ import com.movierecommendation.models.Movies;
 import com.movierecommendation.models.Ratings;
 import com.movierecommendation.models.UserRecommendations;
 import com.movierecommendation.spark.RecommendationEngine;
-import com.movierecommendation.spark.als.ModelFinder;
 import com.movierecommendation.spark.als.TrainConfig;
 import com.movierecommendation.spark.als.TrainedModel;
 
@@ -43,9 +39,8 @@ public class RecommendationEngineService {
         JavaRDD<Ratings> rawRatings = ratingsRDD.map(t -> Ratings.toRatings(t._2()));
         JavaRDD<Rating> ratings = rawRatings.map(Ratings::toSparkRating);
 
-//        TrainConfig trainConfig = new TrainConfig(10, 4);
-//        TrainedModel trainedModel = new RecommendationEngine().train(trainConfig, ratings);
-        this.trainedModel = new ModelFinder().findBestModel(ratings);
+        TrainConfig trainConfig = new TrainConfig(10, 4);
+        this.trainedModel = new RecommendationEngine().train(trainConfig, ratings);
 	}
 	
 	public List<Movies> recommendMovies(String userId) throws IOException {
@@ -55,11 +50,8 @@ public class RecommendationEngineService {
         
         JavaRDD<UserRecommendations> userRecommendations = new RecommendationEngine().recommendMoviesForUser(trainedModel, Integer.parseInt(userId));
         List<Integer> moviesIds = userRecommendations
-                .map(r -> r.getMovieIds())
-                .take(20)
-                .stream()
-                .flatMap(s -> s.stream())
-                .collect(Collectors.toList());
+                .flatMap(r -> r.getMovieIds().iterator())
+                .take(10);
 
         // query movies
         Configuration config = HBaseConfiguration.create();

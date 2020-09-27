@@ -1,5 +1,6 @@
 package com.movierecommendation;
 
+import com.movierecommendation.constants.Constants;
 import com.movierecommendation.controllers.MovieRecommendationController;
 import com.movierecommendation.models.Movies;
 
@@ -17,7 +18,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
@@ -36,7 +36,7 @@ public class Application {
 
     @Bean
     RouterFunction<ServerResponse> createTable(MovieRecommendationController controller) {
-        return RouterFunctions.route(RequestPredicates.GET("/user/{userId}"),
+        return RouterFunctions.route(RequestPredicates.GET("/user/{" + Constants.USER_ID + "}"),
                 request -> {
                     try {
                         return ServerResponse.ok().body(controller.recommendMovies(request), new ParameterizedTypeReference<List<Movies>>() {});
@@ -49,7 +49,7 @@ public class Application {
     
     @Bean
     RouterFunction<ServerResponse> loadMovie(MovieRecommendationController controller) {
-        return RouterFunctions.route(RequestPredicates.GET("/movie/{movieId}"),
+        return RouterFunctions.route(RequestPredicates.GET("/movie/{" + Constants.MOVIE_ID + "}"),
                 controller::loadMovie);
     }
     

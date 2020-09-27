@@ -9,7 +9,10 @@ import org.apache.spark.mllib.recommendation.Rating;
 import com.movierecommendation.constants.Constants;
 
 public class Ratings implements Serializable {
-    private int userId;
+
+	private static final long serialVersionUID = 8891605555616953081L;
+	
+	private int userId;
     private int movieId;
     private double rating;
     private long timestamp;
