@@ -11,9 +11,28 @@
 ## Data sets
 * Movielens data set
 
+# Project Parts Details
+## Part 1: Spark Streaming
+* Spark streaming to load data from csv data sets
+* Spark MLlib to train recommend model and predict as well as recommend movies fro user
+## Part 2: Integrate with HBase
+* Spark streaming read data from CSV files and save to HBase
+* Spark streaming read data from HBase to return result and give data for recommendation model
+## Part 3: Research new tools: not yet implement
+ * This is an improvement if have time. Which is integrate with Kafka to get realtime movies data and get the update from user when they are using Movie Recommendation website. 
 
+# How to run project
+* This project will be ran in Cloudera VMware, make sure HBase services are started.
+* Run file Application.java, there are 3 APIs exposed:
+* http://localhost:8080/train - trigger trainning model
+* http://localhost:8080/movie/{movieId} - load movie details
+* http://localhost:8080/user/{userId} -  get list recommended movie for user, top 10 movies for user based on ratings.
 ## References
 * https://dzone.com/articles/recommendation-system-using-spark-ml-akka-and-cass#:~:text=Apache%20Spark%20ML%20implements%20alternating,Regularization%20(ALS%2DWR).
 * https://medium.com/edureka/spark-mllib-e87546ac268
+* https://github.com/rashnil-git/Recommender-System.git
+* https://github.com/cosminseceleanu/movie-recommender.git
+* Slides from BDT course.
+* Data set: https://www.kaggle.com/shubhammehta21/movie-lens-small-latest-dataset
 
 
