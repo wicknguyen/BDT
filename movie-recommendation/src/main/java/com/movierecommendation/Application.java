@@ -17,6 +17,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
@@ -56,6 +57,12 @@ public class Application {
     RouterFunction<ServerResponse> trainModel(MovieRecommendationController controller) {
         return RouterFunctions.route(RequestPredicates.GET("/train"),
                 controller::trainModel);
+    }
+
+    @Bean
+    RouterFunction<ServerResponse> trainModel() {
+        return RouterFunctions.route(RequestPredicates.GET("/users"),
+                request -> ServerResponse.ok().body(Mono.just(Arrays.asList("test")), String.class));
     }
 
 }
