@@ -59,10 +59,4 @@ public class Application {
                 controller::trainModel);
     }
 
-    @Bean
-    RouterFunction<ServerResponse> trainModel() {
-        return RouterFunctions.route(RequestPredicates.GET("/users"),
-                request -> ServerResponse.ok().body(Mono.just(Arrays.asList("test")), String.class));
-    }
-
 }

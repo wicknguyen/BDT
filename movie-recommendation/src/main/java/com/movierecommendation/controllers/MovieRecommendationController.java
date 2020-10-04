@@ -2,7 +2,6 @@ package com.movierecommendation.controllers;
 
 import com.movierecommendation.constants.Constants;
 import com.movierecommendation.models.Movies;
-import com.movierecommendation.services.HBaseService;
 import com.movierecommendation.services.MovieService;
 import com.movierecommendation.services.RecommendationEngineService;
 
@@ -22,8 +21,6 @@ public class MovieRecommendationController implements Serializable {
 
 	private static final long serialVersionUID = -6274103634653122061L;
 	
-	@Autowired
-    private HBaseService movieRecommendationHBase;
     @Autowired
     private MovieService movieRecommendationService;
     @Autowired
@@ -36,7 +33,7 @@ public class MovieRecommendationController implements Serializable {
     
     public Mono<ServerResponse> trainModel(ServerRequest request) {
     	recommendationEngineService.trainModel();
-    	return ServerResponse.ok().body(Mono.just("Trainning model..."), String.class);
+    	return ServerResponse.ok().body(Mono.just("Trained recommendation model."), String.class);
     }
     
     public Mono<ServerResponse> loadMovie(ServerRequest request) {
