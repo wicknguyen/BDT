@@ -28,6 +28,8 @@
 * http://localhost:8080/movie/{movieId} - load movie details
 * http://localhost:8080/user/{userId} -  get list recommended movie for user, top 10 movies for user based on ratings.
 * Input file at "movie-recommendation/src/main/resources/input/"
+# Demo video
+* https://web.microsoftstream.com/video/5ee3c64f-c076-4365-b456-ce5a73e38e58
 ## References
 * https://dzone.com/articles/recommendation-system-using-spark-ml-akka-and-cass#:~:text=Apache%20Spark%20ML%20implements%20alternating,Regularization%20(ALS%2DWR).
 * https://medium.com/edureka/spark-mllib-e87546ac268
